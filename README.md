@@ -10,11 +10,7 @@
 Mayhaps add input file support with a flag. Maybe save basic data to a file / graph.
 
 ## Ideal Usage:
-
 Give the command space delimited IPv4 addresses. It will return geo location data from and API (ip-api.com).
-
-
-
 
 Ideal Input:
 
