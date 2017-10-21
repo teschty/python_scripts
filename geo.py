@@ -61,8 +61,7 @@ def printer(data):
     if data['status'] == "success":
         print("----------")
         if data['country'] != '':
-            print(
-                "| IP:         {0[query]}\n| Country:    {0[country]} ({0[countryCode]})".format(data))
+            print("| IP:         {0[query]}\n| Country:    {0[country]} ({0[countryCode]})".format(data))
         if data['region'] != '':
             print("| Region:     {0[regionName]} ({0[region]})".format(data))
         if data['zip'] != '':
