@@ -10,6 +10,7 @@ geo -f ip.txt
 """
 
 from argparse import ArgumentParser
+import re
 import requests
 
 # TODO: Add an all command argument flag that will show as much as possible.
@@ -47,8 +48,10 @@ def geo():
     # has file args
     elif file_args:
         with open(file_args) as file:
-            lines = [line.rstrip("\n") for line in file]
-            for single_ip in lines:
+            ips = re.findall("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", file.read())
+            ips = [ip for ip in ips if valid_ip(ip)]
+
+            for single_ip in ips:
                 request = requests.get(URL + single_ip)
                 if request.status_code == 200:
                     data = request.json()
@@ -71,5 +74,14 @@ def printer(data):
         print("| Status:     {0[status]}".format(data))
         print("| Message:    {0[message]}".format(data))
 
+
+def valid_ip(address):
+    try:
+        host_bytes = address.split('.')
+        valid = [int(b) for b in host_bytes]
+        valid = [b for b in valid if b >= 0 and b<=255]
+        return len(host_bytes) == 4 and len(valid) == 4
+    except:
+        return False
 
 geo()
