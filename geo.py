@@ -32,7 +32,7 @@ def geo():
     # get ip file argument
     file_args = parser.parse_args().file
 
-    # no args. get user info.
+    # no args. get user info
     if not args and not file_args:
         print("NOTE: Run geo with -h for help")
         request = requests.get(url)
