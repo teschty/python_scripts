@@ -26,7 +26,7 @@ def weather():
 
     apixu_key = "6510b92495fd472ca30155709172803&q"
     api_url = f"https://api.apixu.com/v1/current.json?key={apixu_key}={location}"
-
+ 
     # Feed city for weather info
     if data["status"] == "success":
         request = requests.get(api_url)
