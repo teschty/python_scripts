@@ -14,11 +14,15 @@ def weather():
     """main program"""
 
     # Fetch IP for city data
-    url = "http://ip-api.com/json"
-    request = requests.get(url)
-    if request.status_code == 200:
-        data = request.json()
-        location = data['city']
+    try:
+        url = "http://ip-api.com/json"
+        request = requests.get(url)
+        if request.status_code == 200:
+            data = request.json()
+            location = data['zip']
+    except requests.exceptions.RequestException:
+        print("Location not found")
+        exit(1)
 
     apixu_key = "6510b92495fd472ca30155709172803&q"
     api_url = f"https://api.apixu.com/v1/current.json?key={apixu_key}={location}"
