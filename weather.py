@@ -2,7 +2,6 @@
 """
 Fetches current weather based on IP location
 
-
 Example Usage:
 weather
 """
@@ -25,8 +24,9 @@ def weather():
         exit(1)
 
     apixu_key = "6510b92495fd472ca30155709172803&q"
-    api_url = f"https://api.apixu.com/v1/current.json?key={apixu_key}={location}"
- 
+    api_url = "https://api.apixu.com/v1/current.json?key={}={}".format(
+        apixu_key, location)
+
     # Feed city for weather info
     if data["status"] == "success":
         request = requests.get(api_url)
@@ -40,14 +40,14 @@ def weather():
 
 def printer(data):
     """Displays information from json pulled from site"""
-
+    
     print("-----------------------")
-    print(f"City: {data['location']['name']}")
-    print(f"Temp: {data['current']['temp_f']}°F")
-    print(f"Feels Like: {data['current']['feelslike_f']}°F")
-    print(f"Humidity: {data['current']['humidity']}%")
-    print(f"Wind speed: {data['current']['wind_mph']} mph")
-    print(f"Condition: {data['current']['condition']['text']}")
+    print("City:\t\t{[name]}".format(data["location"]))
+    print("Temp:\t\t{[temp_f]}°F".format(data["current"]))
+    print("Feels Like:\t{[feelslike_f]}°F".format(data["current"]))
+    print("Humidity:\t{[humidity]}%".format(data["current"]))
+    print("Wind Speed:\t{[wind_mph]} mph".format(data["current"]))
+    print("Condition:\t{[condition][text]}".format(data["current"]))
     print("-----------------------")
 
 
