@@ -18,7 +18,7 @@ import requests
 def geo():
     """main program"""
 
-    url = "http://ip-api.com/json/"
+    url = "http://freegeoip.net/json/"
     # empty dict. Save data as a dict with a set of IPs. ex: {country: {IP, IP, IP}}
     location_dict = {}
 
@@ -89,52 +89,36 @@ def geo():
 
 def printer_and_collector(data, location_dict):
     """Displays information from json pulled from site"""
-    if data["status"] == "success":
-        print("----------")
-        if data["country"] != "":
-            print(
-                "| IP:         {0[query]}\n"
-                "| Country:    {0[country]} ({0[countryCode]})".format(data))
-            
-            # add country and begin set for IPs if the country hasn't shown up yet.
-            if data["country"] not in location_dict:
-                location_dict.update({data["country"]:set()})
-            
-            # add ip to set that is the value to the country key in the dict of countries. 
-            location_dict[data["country"]].add(data["query"])
+    print("----------")
+    if data["country_name"] != "":
+        print(
+            "| IP:         {0[ip]}\n"
+            "| Country:    {0[country_name]} ({0[country_code]})".format(data))
+        
+        # add country and begin set for IPs if the country hasn't shown up yet.
+        if data["country_name"] not in location_dict:
+            location_dict.update({data["country_name"]:set()})
+        
+        # add ip to set that is the value to the country key in the dict of countries. 
+        location_dict[data["country_name"]].add(data["ip"])
 
-        if data["region"] != "":
-            print("| Region:     {0[regionName]} ({0[region]})".format(data))
-        if data["zip"] != "":
-            print("| ZIP:        {0[zip]}".format(data))
-        if data["isp"] != "":
-            print("| ISP:        {0[isp]}".format(data))
-    elif data["status"] == "fail":
-        print("__________")
-        print("| IP:         {0[query]}".format(data))
-        print("| Status:     {0[status]}".format(data))
-        print("| Message:    {0[message]}".format(data))
+    if data["region_code"] != "":
+        print("| Region:     {0[region_name]} ({0[region_code]})".format(data))
+    if data["zip_code"] != "":
+        print("| ZIP:        {0[zip_code]}".format(data))
 
 
 def printer(data):
     """Displays information from json pulled from site"""
-    if data["status"] == "success":
-        print("----------")
-        if data["country"] != "":
-            print(
-                "| IP:         {0[query]}\n"
-                "| Country:    {0[country]} ({0[countryCode]})".format(data))
-        if data["region"] != "":
-            print("| Region:     {0[regionName]} ({0[region]})".format(data))
-        if data["zip"] != "":
-            print("| ZIP:        {0[zip]}".format(data))
-        if data["isp"] != "":
-            print("| ISP:        {0[isp]}".format(data))
-    elif data["status"] == "fail":
-        print("__________")
-        print("| IP:         {0[query]}".format(data))
-        print("| Status:     {0[status]}".format(data))
-        print("| Message:    {0[message]}".format(data))
+    print("----------")
+    if data["country_name"] != "":
+        print(
+            "| IP:         {0[ip]}\n"
+            "| Country:    {0[country_name]} ({0[country_code]})".format(data))
+    if data["region_code"] != "":
+        print("| Region:     {0[region_name]} ({0[region_code]})".format(data))
+    if data["zip_code"] != "":
+        print("| ZIP:        {0[zip_code]}".format(data))
 
 
 def valid_ip(address):
